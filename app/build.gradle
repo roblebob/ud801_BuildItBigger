@@ -43,6 +43,8 @@ android {
 
 
 dependencies {
+    implementation project(':javaLib')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation 'androidx.appcompat:appcompat:1.4.1'
