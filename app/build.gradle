@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
-        minSdk 24
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -43,7 +43,8 @@ android {
 
 
 dependencies {
-    implementation project(':javaLib')
+    implementation project(':javalib')
+    implementation project(':androidlib')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')

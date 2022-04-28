@@ -1,14 +1,18 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.roblebob.androidlib.JokeDisplayActivity;
+import com.roblebob.javalib.Joke;
 
 
 /**
@@ -26,9 +30,7 @@ public class MainActivityFragment extends Fragment {
 
 
         MobileAds .initialize( requireContext(), initializationStatus -> {});
-
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
-
         /*
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -39,11 +41,16 @@ public class MainActivityFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
         */
-
-
         AdRequest adRequest = new AdRequest.Builder().build();
-
         mAdView.loadAd(adRequest);
+
+
+        ((Button) root.findViewById(R.id.fragment_main_button)) .setOnClickListener( (v) -> {
+            Intent intent = new Intent(requireContext(), JokeDisplayActivity.class);
+            intent.putExtra("Joke", Joke.getJoke());
+            startActivity( intent);
+        });
+
 
         return root;
     }
