@@ -1,8 +1,11 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +49,11 @@ public class MainActivityFragment extends Fragment {
 
 
         ((Button) root.findViewById(R.id.fragment_main_button)) .setOnClickListener( (v) -> {
-            Intent intent = new Intent(requireContext(), JokeDisplayActivity.class);
-            intent.putExtra("Joke", Joke.getJoke());
-            startActivity( intent);
+            Context context =  requireContext();
+
+            new EndpointsAsyncTask().execute(new Pair<Context, String>(context, "Manfred"));
+
+
         });
 
 
