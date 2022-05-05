@@ -32,6 +32,21 @@ android {
         }
     }
 
+
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            applicationIdSuffix ".free"
+            dimension "version"
+            versionNameSuffix "-free"
+        }
+        paid {
+            applicationIdSuffix ".paid"
+            dimension "version"
+            versionNameSuffix "-paid"
+        }
+    }
+
     // needed to fix problem: https://knowledge.udacity.com/questions/263051 also suggested by gradle
     packagingOptions {
         pickFirst  'META-INF/*'
