@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JokeDisplayFragment">
+    tools:context="com.udacity.gradle.androidlib.com.udacity.gradle.builditbigger.androidlib.JokeDisplayFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

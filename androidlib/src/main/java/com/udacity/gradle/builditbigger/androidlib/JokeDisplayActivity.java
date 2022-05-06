@@ -1,4 +1,4 @@
-package com.roblebob.androidlib;
+package com.udacity.gradle.builditbigger.androidlib;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.udacity.gradle.builditbigger.androidlib.R;
 
 public class JokeDisplayActivity extends AppCompatActivity {
 
