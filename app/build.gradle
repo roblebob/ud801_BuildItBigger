@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.1.0'
     }
+
 }
 
 android {
@@ -82,12 +83,10 @@ dependencies {
 }
 
 
-
-
-//task myFinalTest ( type: Test, description: 'Run all tests') {
-//    doFirst {
-//        println "before: appengineStart"
-//        //appengineStart
-//        println "after: appengineStart"
-//    }
-//}
+task myFinalTest {
+    dependsOn ":backend:appengineStart"
+    doLast {
+        connectedAndroidTest
+    }
+    finalizedBy ":backend:appengineStop"
+}

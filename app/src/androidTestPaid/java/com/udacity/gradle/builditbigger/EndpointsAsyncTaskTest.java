@@ -5,9 +5,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import android.app.Application;
-import android.content.Context;
-import android.util.Pair;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +17,8 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+
 
 @RunWith(AndroidJUnit4.class)
 public class EndpointsAsyncTaskTest {
