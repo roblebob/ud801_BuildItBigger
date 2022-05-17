@@ -80,3 +80,14 @@ dependencies {
 
     implementation 'androidx.test.ext:junit:1.1.3'
 }
+
+
+
+
+//task myFinalTest ( type: Test, description: 'Run all tests') {
+//    doFirst {
+//        println "before: appengineStart"
+//        //appengineStart
+//        println "after: appengineStart"
+//    }
+//}

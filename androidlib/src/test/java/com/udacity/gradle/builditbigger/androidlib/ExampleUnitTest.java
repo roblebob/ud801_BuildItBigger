@@ -1,4 +1,4 @@
-package com.roblebob.androidlib;
+package com.udacity.gradle.builditbigger.androidlib;
 
 import org.junit.Test;
 
