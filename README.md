@@ -1,3 +1,10 @@
+Important: to run the connected test at the end, uncheck  
++ Settings
+++ Build, Execution, Deployment
++++ Testing
+++++ Run Android Instrumented Test using Gradle
+[Ref](https://stackoverflow.com/questions/71513360/run-android-instrumented-tests-fail)
+
 # Gradle for Android and Java Final Project
 
 In this project, you will create an app with multiple flavors that uses
