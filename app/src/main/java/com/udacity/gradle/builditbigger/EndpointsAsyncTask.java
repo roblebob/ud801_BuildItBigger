@@ -21,6 +21,14 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     private static MyApi myApiService = null;
     private Context context;
 
+    public interface MyCallback { void enterResults(String results); }
+    MyCallback myCallback;
+
+    EndpointsAsyncTask(MyCallback myCallback) {
+        this.myCallback = myCallback;
+    }
+
+
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
         if(myApiService == null) {  // Only do this once
@@ -42,6 +50,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         }
 
         context = params[0].first;
+
         String name = params[0].second;
 
         try {
@@ -56,8 +65,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         Log.e("EndpointsAsyncTask::onPostExecute --->","result: " + result);
 
-        Intent intent = new Intent(context, JokeDisplayActivity.class);
-        intent.putExtra("Joke", result);
-        context.startActivity(intent);
+        myCallback.enterResults(result);
     }
 }

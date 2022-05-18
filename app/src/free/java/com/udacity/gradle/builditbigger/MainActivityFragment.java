@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +25,13 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.udacity.gradle.builditbigger.androidlib.JokeDisplayActivity;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements EndpointsAsyncTask.MyCallback {
 
     private static final String TAG = MainActivityFragment.class.getSimpleName();
 
@@ -38,8 +39,12 @@ public class MainActivityFragment extends Fragment {
 
     private ProgressBar mSpinner;
 
+    Context mContext;
+
     public MainActivityFragment() {
     }
+
+
 
 
     @Override
@@ -47,6 +52,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
+        mContext = this.getContext(); //requireContext();
 
         mSpinner = (ProgressBar) root.findViewById(R.id.fragment_main_progressBar);
         mSpinner.setVisibility(View.GONE);
@@ -58,13 +64,13 @@ public class MainActivityFragment extends Fragment {
         // ads
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        MobileAds .initialize( requireContext(), initializationStatus -> {});
+        MobileAds .initialize( mContext, initializationStatus -> {});
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
 
 
-        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load( mContext,"ca-app-pub-3940256099942544/1033173712", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -80,7 +86,7 @@ public class MainActivityFragment extends Fragment {
                                 // Called when fullscreen content is dismissed.
                                 Log.e("TAG", "The ad was dismissed.");
 
-                                presentResults();
+                                fetchResults();
                             }
 
                             @Override
@@ -125,15 +131,8 @@ public class MainActivityFragment extends Fragment {
                 mInterstitialAd.show(requireActivity());
             } else {
                 Log.e("TAG", "--------> " + "The interstitial ad wasn't ready yet.");
-                presentResults();
-
-
+                fetchResults();
             }
-
-            mSpinner.setVisibility(View.VISIBLE);
-
-
-
         });
 
 
@@ -141,28 +140,21 @@ public class MainActivityFragment extends Fragment {
     }
 
 
+
+
+    void fetchResults(){
+        mSpinner.setVisibility(View.VISIBLE);
+        (new Handler()) .postDelayed(() -> new EndpointsAsyncTask( this )
+                .execute(new Pair<Context, String>( mContext, "Manfred")), 500);
+    }
+
+
     @Override
-    public void onPause() {
-        Log.e(TAG,"----->  " +  "onPause()");
-
-        super.onPause();
+    public void enterResults(String results) {
+        Log.e(TAG + "enterResults()", "----> " + results);
+        mSpinner.setVisibility(View.GONE);
+        Intent intent = new Intent(mContext, JokeDisplayActivity.class);
+        intent.putExtra("Joke", results);
+        mContext.startActivity(intent);
     }
-
-    @Override
-    public void onResume() {
-        Log.e(TAG,"----->  " +  "onResume()");
-
-        super.onResume();
-    }
-
-
-
-    void presentResults(){
-        Handler handler = new Handler();
-        handler.postDelayed(() ->
-                        new EndpointsAsyncTask().execute(new Pair<Context, String>( requireContext(), "Manfred"))
-                , 2000
-        );
-    }
-
 }
