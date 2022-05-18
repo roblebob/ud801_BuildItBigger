@@ -80,12 +80,7 @@ public class MainActivityFragment extends Fragment {
                                 // Called when fullscreen content is dismissed.
                                 Log.e("TAG", "The ad was dismissed.");
 
-                                Handler handler = new Handler();
-                                handler.postDelayed(() ->
-                                                new EndpointsAsyncTask().execute(new Pair<Context, String>( requireContext(), "Manfred"))
-                                        , 2000
-                                );
-
+                                presentResults();
                             }
 
                             @Override
@@ -130,16 +125,15 @@ public class MainActivityFragment extends Fragment {
                 mInterstitialAd.show(requireActivity());
             } else {
                 Log.e("TAG", "--------> " + "The interstitial ad wasn't ready yet.");
+                presentResults();
+
+
             }
 
             mSpinner.setVisibility(View.VISIBLE);
 
 
-//            Handler handler = new Handler();
-//            handler.postDelayed(() ->
-//                    new EndpointsAsyncTask().execute(new Pair<Context, String>( requireContext(), "Manfred"))
-//                    , 2000
-//            );
+
         });
 
 
@@ -159,6 +153,16 @@ public class MainActivityFragment extends Fragment {
         Log.e(TAG,"----->  " +  "onResume()");
 
         super.onResume();
+    }
+
+
+
+    void presentResults(){
+        Handler handler = new Handler();
+        handler.postDelayed(() ->
+                        new EndpointsAsyncTask().execute(new Pair<Context, String>( requireContext(), "Manfred"))
+                , 2000
+        );
     }
 
 }
