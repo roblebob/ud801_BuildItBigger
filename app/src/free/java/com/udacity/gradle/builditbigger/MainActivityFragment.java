@@ -77,14 +77,14 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         mInterstitialAd = interstitialAd;
-                        Log.e(TAG, "--------> " + "onAdLoaded");
+                        Log.d(TAG, "--------> " + "onAdLoaded");
 
 
                         mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
                             @Override
                             public void onAdDismissedFullScreenContent() {
                                 // Called when fullscreen content is dismissed.
-                                Log.e("TAG", "The ad was dismissed.");
+                                Log.d(TAG, "The ad was dismissed.");
 
                                 fetchResults();
                             }
@@ -92,7 +92,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
                             @Override
                             public void onAdFailedToShowFullScreenContent(AdError adError) {
                                 // Called when fullscreen content failed to show.
-                                Log.e("TAG", "The ad failed to show.");
+                                Log.d(TAG, "The ad failed to show.");
                             }
 
                             @Override
@@ -101,7 +101,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
                                 // Make sure to set your reference to null so you don't
                                 // show it a second time.
                                 mInterstitialAd = null;
-                                Log.e("TAG", "The ad was shown.");
+                                Log.d(TAG, "The ad was shown.");
                             }
                         });
                     }
@@ -109,7 +109,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error
-                        Log.e(TAG, "--------> " + loadAdError.getMessage());
+                        Log.d(TAG, "--------> " + loadAdError.getMessage());
                         mInterstitialAd = null;
                     }
                 });
@@ -130,7 +130,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
             if (mInterstitialAd != null) {
                 mInterstitialAd.show(requireActivity());
             } else {
-                Log.e("TAG", "--------> " + "The interstitial ad wasn't ready yet.");
+                Log.d(TAG, "The interstitial ad wasn't ready yet.");
                 fetchResults();
             }
         });
@@ -151,7 +151,7 @@ public class MainActivityFragment extends Fragment implements EndpointsAsyncTask
 
     @Override
     public void enterResults(String results) {
-        Log.e(TAG + "enterResults()", "----> " + results);
+        Log.d(TAG + "enterResults()", "----> " + results);
         mSpinner.setVisibility(View.GONE);
         Intent intent = new Intent(mContext, JokeDisplayActivity.class);
         intent.putExtra("Joke", results);
